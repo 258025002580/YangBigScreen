@@ -8,8 +8,6 @@ declare module '*.vue' {
 
 interface ImportMetaEnv {
   readonly VITE_DATA_SOURCE: 'mock' | 'api'
-  readonly VITE_LOG_LEVEL: 'debug' | 'info' | 'warn' | 'error'
-  readonly VITE_LOG_PERSIST: 'true' | 'false'
 }
 
 interface ImportMeta {

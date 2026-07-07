@@ -1,32 +1,60 @@
-import type { ChartData } from './chart'
+/** 仪表盘核心数据类型 */
 
-/** 仪表盘整体数据 */
+export interface MetricItem {
+  id: string
+  label: string
+  value: number
+  unit: string
+  icon: string
+  color: string
+  trend?: number
+}
+
+export interface TrendPoint {
+  time: string
+  value: number
+}
+
+export interface CategoryItem {
+  name: string
+  value: number
+  color?: string
+}
+
+export interface RankingItem {
+  name: string
+  value: number
+  percent?: number
+}
+
+export interface RadarItem {
+  name: string
+  value: number
+  max: number
+}
+
+export interface ActivityItem {
+  id: number
+  type: 'info' | 'warning' | 'success' | 'error'
+  content: string
+  time: string
+}
+
 export interface DashboardData {
-  /** 仪表盘标题 */
   title: string
-  /** 数据更新时间 */
   updateTime: string
-  /** 各图表数据集合 */
-  charts: Record<string, ChartData>
-  /** 汇总指标 */
-  summary: DashboardSummary
+  metrics: MetricItem[]
+  trendData: TrendPoint[]
+  categories: CategoryItem[]
+  rankings: RankingItem[]
+  radarData: RadarItem[]
+  activities: ActivityItem[]
+  mapData: { name: string; value: number }[]
 }
 
-/** 汇总指标 */
-export interface DashboardSummary {
-  /** 总销售额 */
-  totalSales: number
-  /** 总订单数 */
-  totalOrders: number
-  /** 总用户数 */
-  totalUsers: number
-  /** 同比变化率 */
-  growthRate: number
-}
-
-/** 实时刷新数据 */
-export interface RealtimeData {
-  chartId: string
-  data: ChartData
+export interface ApiResponse<T> {
+  code: number
+  data: T
+  message: string
   timestamp: number
 }

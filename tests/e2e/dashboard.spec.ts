@@ -1,26 +1,31 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('数据大屏 Dashboard', () => {
-  test('页面应正常渲染', async ({ page }) => {
+test.describe('如意数据大屏 E2E', () => {
+  test('页面标题应正确显示', async ({ page }) => {
     await page.goto('/')
-    // 等待标题出现
-    await expect(page.locator('.title-text')).toBeVisible()
-    // 确认标题内容
-    const title = await page.locator('.title-text').textContent()
-    expect(title).toBeTruthy()
+    await page.waitForSelector('.title-cn', { timeout: 10000 })
+    const title = await page.locator('.title-cn').textContent()
+    expect(title).toContain('如意')
   })
 
-  test('应显示汇总指标卡片', async ({ page }) => {
+  test('核心指标卡片应存在', async ({ page }) => {
     await page.goto('/')
-    await page.waitForSelector('.summary-item', { timeout: 5000 })
-    const items = await page.locator('.summary-item').count()
-    expect(items).toBe(4)
+    await page.waitForSelector('.metric-card', { timeout: 10000 })
+    const count = await page.locator('.metric-card').count()
+    expect(count).toBe(4)
   })
 
-  test('应显示图表容器', async ({ page }) => {
+  test('图表容器应存在', async ({ page }) => {
     await page.goto('/')
-    await page.waitForSelector('.data-card', { timeout: 5000 })
-    const cards = await page.locator('.data-card').count()
-    expect(cards).toBeGreaterThan(0)
+    await page.waitForSelector('.base-panel', { timeout: 10000 })
+    const panels = await page.locator('.base-panel').count()
+    expect(panels).toBeGreaterThanOrEqual(4)
+  })
+
+  test('页面不是空白', async ({ page }) => {
+    await page.goto('/')
+    await page.waitForSelector('.big-screen', { timeout: 10000 })
+    const html = await page.content()
+    expect(html.length).toBeGreaterThan(100)
   })
 })

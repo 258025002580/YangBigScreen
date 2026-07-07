@@ -1,7 +1,7 @@
 {
-  "name": "yang-big-screen",
+  "name": "ruyi-big-screen",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --fix",
+    "lint:style": "stylelint \"src/**/*.{css,vue}\" --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,vue,css,json}\"",
     "type-check": "vue-tsc --noEmit",
     "prepare": "husky"
@@ -20,7 +21,7 @@
     "vue": "^3.5.13",
     "pinia": "^2.3.0",
     "echarts": "^5.6.0",
-    "vue-echarts": "^7.0.3"
+    "axios": "^1.7.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
@@ -33,6 +34,7 @@
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^26.0.0",
     "@playwright/test": "^1.51.0",
+    "msw": "^2.7.3",
     "eslint": "^9.22.0",
     "@eslint/js": "^9.22.0",
     "eslint-plugin-vue": "^9.33.0",
@@ -41,6 +43,9 @@
     "prettier": "^3.5.3",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.5",
+    "stylelint": "^16.15.0",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-config-standard-vue": "^1.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "@commitlint/cli": "^19.8.0",
@@ -51,8 +56,16 @@
       "eslint --fix",
       "prettier --write"
     ],
+    "*.{css,vue}": [
+      "stylelint --fix"
+    ],
     "*.{css,json,md}": [
       "prettier --write"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }
